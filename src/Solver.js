@@ -31,12 +31,11 @@ function solve( values ){
 	// console.log( cellWithOnePossible );
 	// setValue( cellWithOnePossible.v , cellWithOnePossible.r , cellWithOnePossible.c , possibleValues );
 	// printPossibleValues( possibleValues );
-	var cellWithOnePossible;
-	while( ( cellWithOnePossible = findCellWithOnePossible(possibleValues) ) != null )
+	var cellToFill;
+	while( ( cellToFill = findCellToFill(possibleValues) ) != null )
 	{
-		console.log( cellWithOnePossible );
-		setValue( cellWithOnePossible.v , cellWithOnePossible.r , cellWithOnePossible.c , possibleValues );
-		printPossibleValues( possibleValues );
+		setValue( cellToFill.v , cellToFill.r , cellToFill.c , possibleValues );
+		//printPossibleValues( possibleValues );
 	}
 	
 	var resultValues = getResultValues( possibleValues );
@@ -276,6 +275,35 @@ function setNotPossible( v , r , c , possibleValues ){
 	
 }
 
+function findCellToFill( possibleValues ){
+	
+	var cellToFill = findCellWithOnePossible( possibleValues );
+	if( cellToFill != null )
+	{
+		console.log( "found cell with one possible value: " + "v=" + cellToFill.v + ", " + "r=" + cellToFill.r + ", " + "c=" + cellToFill.c );
+		return cellToFill;
+	}
+	
+	cellToFill = findRowWhereANumberHasOnePossibleCell( possibleValues );
+	if( cellToFill != null )
+	{
+		console.log( "found row with a number that has only one possible cell: " + "v=" + cellToFill.v + ", " + "r=" + cellToFill.r + ", " + "c=" + cellToFill.c );
+		return cellToFill;
+	}
+	
+	cellToFill = findColumnWhereANumberHasOnePossibleCell( possibleValues );
+	if( cellToFill != null )
+	{
+		console.log( "found column with a number that has only one possible cell: " + "v=" + cellToFill.v + ", " + "r=" + cellToFill.r + ", " + "c=" + cellToFill.c );
+		return cellToFill;
+	}
+	
+	
+	
+	return null;
+	
+}
+
 function findCellWithOnePossible( possibleValues ){
 	
 	for( var r = 0; r < 9; r++)
@@ -293,8 +321,6 @@ function findCellWithOnePossible( possibleValues ){
 					});
 				}
 			}
-			
-			
 		}
 		
 	}
@@ -302,6 +328,81 @@ function findCellWithOnePossible( possibleValues ){
 	return null;
 	
 }
+function findRowWhereANumberHasOnePossibleCell( possibleValues ){
+	
+	for( var r = 0; r < 9; r++)
+	{
+		for( var v = 1; v <= 9; v++ )
+		{
+			var columns = getAllColumnsInThisRowWhereThisValueIsPossible( v , r , possibleValues );
+			if( columns.length == 1 )
+			{
+				return({
+					v: v,
+					r: r,
+					c: columns[0],
+				});
+			}
+		}
+	}
+	
+	return null;
+	
+}
+function getAllColumnsInThisRowWhereThisValueIsPossible( v , r , possibleValues ){
+	
+	var columns = [];
+	
+	for( var c=0; c<9; c++ )
+	{
+		if( isPossible(v,r,c,possibleValues) )
+		{
+			columns.push( c );
+		}
+	}
+	
+	return columns;
+	
+}
+
+function findColumnWhereANumberHasOnePossibleCell( possibleValues ){
+	
+	for( var c = 0; c < 9; c++)
+	{
+		for( var v = 1; v <= 9; v++ )
+		{
+			var rows = getAllRowsInThisColumnWhereThisValueIsPossible( v , c , possibleValues );
+			if( rows.length == 1 )
+			{
+				return({
+					v: v,
+					r: rows[0],
+					c: c,
+				});
+			}
+		}
+	}
+	
+	return null;
+	
+}
+function getAllRowsInThisColumnWhereThisValueIsPossible( v , c , possibleValues ){
+	
+	var rows = [];
+	
+	for( var r=0; r<9; r++ )
+	{
+		if( isPossible(v,r,c,possibleValues) )
+		{
+			rows.push( r );
+		}
+	}
+	
+	return rows;
+	
+}
+
+
 
 function getResultValues( possibleValues ){
 	
