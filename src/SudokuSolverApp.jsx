@@ -9,22 +9,10 @@ function SudokuSolverApp(){
 			c: -1
 		}
 	);
-	var n = null;
 	
+	var n = null;
 	const [values, setValues] = useState(
-		[
-			[   n , 8 , n   ,   n , 1 , n   ,   n , 2 , n  ],
-			[   6 , n , n   ,   3 , n , 5   ,   n , n , 1  ],
-			[   n , n , 7   ,   n , n , n   ,   4 , n , n  ],
-				
-			[   n , 2 , n   ,   1 , n , 9   ,   n , 5 , n  ],
-			[   7 , n , n   ,   n , n , n   ,   n , n , 6  ],
-			[   n , 9 , n   ,   6 , n , 3   ,   n , 4 , n  ],
-				
-			[   n , n , 5   ,   n , n , n   ,   3 , n , n  ],
-			[   9 , n , n   ,   2 , n , 1   ,   n , n , 8  ],
-			[   n , 3 , n   ,   n , 6 , n   ,   n , 7 , n  ],
-		]
+		getDefaultValues()
 	);
 	
 	return(
@@ -41,9 +29,16 @@ function SudokuSolverApp(){
 				selectedCell = {selectedCell}
 			/>
 			
-			<button onClick={()=>solveClicked()}>
-				Solve
-			</button>
+			<div style={{display: "flex", gap: "20px" }} >
+				<button onClick={()=>solveClicked()}>
+					Solve
+				</button>
+				
+				<button onClick={()=>clearClicked()}>
+					Clear
+				</button>
+			</div>
+			
 			
 			
 		</div>
@@ -100,6 +95,56 @@ function SudokuSolverApp(){
 		var resultValues = solve( values );
 		setValues( resultValues );
 		
+	}
+	function clearClicked(){
+		
+		var n = null;
+		var clearedValues = getClearedValues();
+		
+		setValues( clearedValues );
+	
+		
+	}
+	
+	function getDefaultValues(){
+		
+		 
+		var defaultValues = 
+		[
+			[   n , 8 , n   ,   n , 1 , n   ,   n , 2 , n  ],
+			[   6 , n , n   ,   3 , n , 5   ,   n , n , 1  ],
+			[   n , n , 7   ,   n , n , n   ,   4 , n , n  ],
+				
+			[   n , 2 , n   ,   1 , n , 9   ,   n , 5 , n  ],
+			[   7 , n , n   ,   n , n , n   ,   n , n , 6  ],
+			[   n , 9 , n   ,   6 , n , 3   ,   n , 4 , n  ],
+				
+			[   n , n , 5   ,   n , n , n   ,   3 , n , n  ],
+			[   9 , n , n   ,   2 , n , 1   ,   n , n , 8  ],
+			[   n , 3 , n   ,   n , 6 , n   ,   n , 7 , n  ],
+		];
+		
+		return defaultValues;
+		
+	}
+	function getClearedValues(){
+		
+		var clearedValues = 
+		[
+			[   n , n , n   ,   n , n , n   ,   n , n , n  ],
+			[   n , n , n   ,   n , n , n   ,   n , n , n  ],
+			[   n , n , n   ,   n , n , n   ,   n , n , n  ],
+				
+			[   n , n , n   ,   n , n , n   ,   n , n , n  ],
+			[   n , n , n   ,   n , n , n   ,   n , n , n  ],
+			[   n , n , n   ,   n , n , n   ,   n , n , n  ],
+			
+			[   n , n , n   ,   n , n , n   ,   n , n , n  ],
+			[   n , n , n   ,   n , n , n   ,   n , n , n  ],
+			[   n , n , n   ,   n , n , n   ,   n , n , n  ],
+		];
+		
+		return clearedValues;
 		
 	}
 	

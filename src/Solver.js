@@ -2,7 +2,6 @@
 
 function solve( values ){
 	
-	console.log( "solve" );
 	console.log( toString( values ) );
 	
 	var possibleValues = createInitialPossibleValues();
@@ -16,21 +15,13 @@ function solve( values ){
 			var v = values[r][c];
 			if( v != null )
 			{
-				// setValue( v , r , c , possibleValues );
-				// console.log( "given value @ " + r + "," + c + ": " + v );
 				setValue( v , r , c , possibleValues );
-				//printPossibleValues( possibleValues );
 			}
 		}
 	}
 	
 	printPossibleValues( possibleValues );
 	
-	
-	// var cellWithOnePossible = findCellWithOnePossible(possibleValues);
-	// console.log( cellWithOnePossible );
-	// setValue( cellWithOnePossible.v , cellWithOnePossible.r , cellWithOnePossible.c , possibleValues );
-	// printPossibleValues( possibleValues );
 	var cellToFill;
 	while( ( cellToFill = findCellToFill(possibleValues) ) != null )
 	{
