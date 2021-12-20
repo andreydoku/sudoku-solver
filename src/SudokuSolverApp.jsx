@@ -380,8 +380,9 @@ function SudokuCell( {value, isSelected, onClick, r,c } ){
 	var cellStyle = { 
 		display: "flex", justifyContent: "center", alignItems: "center" , 
 		textAlign: "center", 
-		fontSize: "min( 8vw , 64px)", 
-		fontFamily: "Berlin Sans FB",
+		fontSize: "min( 7vw , 56px)", 
+		// fontFamily: "Berlin Sans FB",
+		fontFamily: "Montserrat",
 		cursor: "pointer",
 		backgroundColor: "rgb(145, 176, 213)",
 		// color: "rgb(46, 81, 119)",
